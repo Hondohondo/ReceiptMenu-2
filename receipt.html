@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
+  <title>Receipt Print Out</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      /*For responsive design this translates to 10px, 1rem=10px, 10px/16px*/
+      font-size: 62.5%;
+      /*this reduces the general font size*/
+      font-family: monospace;
+    }
+
+    body {
+      color: #555;
+      font-family: Open Sans, sans-serif;
+      /*font-size: 1.6rem;*/
+      font-size: 2.0rem;
+      /*position: relative;*/
+      /*height: 100vh;*/
+      font-weight: 400;
+
+      background-color: #ecf0f1;
+      /*background-color: #bdc3c7;*/
+    }
+
+    .container {
+      max-width: 120rem;
+      margin: 1rem auto;
+      background-color: #fff;
+      padding: 1rem 8rem;
+      border-radius: 2px;
+    }
+
+    h2,h3 {
+      text-align: center;
+    }
+    h3  {
+      margin-bottom: 3rem;
+    }
+
+    .order-placed {
+      display: flex;
+      justify-content: space-between;
+      /*justify-content: space-evenly;*/
+    }
+
+    .order {
+      flex: 0 0 50%;
+
+    }
+
+    .date {
+      flex: 0 0 39%;
+      flex: 0 0 27%;
+      /*margin-right: 10rem;*/
+    }
+
+    p { margin-bottom: 2rem;}
+
+    table {
+      /*margin-left: 4rem;*/
+      width: 90%;
+      margin: 0 auto;
+    }
+    thead {
+      /*padding: 2rem;*/
+    }
+
+    th {
+      /*padding: 2rem;*/
+      text-align: left;
+    }
+
+    td {
+      text-align: left;
+    }
+
+    tfoot {
+      font-weight: bold;
+    }
+
+    .payment-info{
+      margin-top: 2rem;
+    }
+
+    .zero{
+      margin: 0 !important;
+    }
+
+
+    .order-items-details {
+      display: flex;
+      /*justify-content: space-around;*/
+      margin-left: 3rem;
+      font-size: 1.8rem;
+    }
+    .item {
+      /*flex: 0 0 40%;*/
+      flex: 0 0 55%;
+    }
+
+    .item p {
+      /*height: 5rem;*/
+      height: 3.5rem;
+    }
+    .quantity {
+      /*flex: 0 0 20%;*/
+      flex: 0 0 15%;
+    }
+
+    .quantity p {
+      /*height:5rem;*/
+      height:3.5rem;
+
+
+      text-align: center;
+      /*text-align: right;*/
+      /*text-align: justify;*/
+    }
+    .amount {
+      /*flex: 0 0 20%;*/
+      flex: 0 0 15%;
+    }
+
+    .amount p {
+      /*height: 5rem;*/
+      height: 3.5rem;
+      text-align: right;
+    }
+
+    .total p {
+      /*height: 5rem;*/
+      height: 3.5rem;
+      text-align: right;
+    }
+    .total {
+      /*flex: 0 0 20%;*/
+      flex: 0 0 15%;
+    }
+
+    .payment-info-items {
+      display: flex;
+      margin-left: 3rem;
+    }
+    .info-item {
+      flex: 0 0 80%;
+    }
+    /*.info-item p { height: 4rem}*/
+    /*.info-amount p { height: 4rem}*/
+    .info-amount {
+      flex: 0 0 20%;
+    }
+
+    .big-font {
+      /*font-size: 2.1rem;*/
+      font-weight: bold;
+      margin-bottom: 1rem !important;
+    }
+
+    span {
+      /*border-bottom: 1.5px solid rgba(7, 7, 7, 0.7);*/
+      /*border-bottom: 1.5px solid rgb(16, 16, 16);*/
+      border-bottom: 1.5px solid #333;
+      font-weight: bold;
+    }
+    .hasborder {
+      /*border-bottom: 1.5px solid rgba(7, 7, 7, 0.7);*/
+      height: 1.5rem !important;
+    }
+
+    .mono {
+      font-weight: normal;
+      font-size: 1.7rem;
+      /*font-style: oblique;*/
+    }
+
+    .desc {
+      font-size: 1.8rem;
+    }
+
+    .small {
+      font-size: 1.6rem;
+      margin-left: 2rem;
+      font-style: oblique;
+      /*margin-top: -1rem;*/
+    }
+
+    .info-item .payment-para {
+      margin-bottom: 1rem;
+
+    }
+    .info-amount .payment-para {
+      margin-bottom: 1rem;
+      text-align: right;
+    }
+
+    .unpaid {
+      text-align: right;
+    }
+
+    .payment-info-items p {
+      font-size: 1.8rem;
+    }
+
+    .mb-1 {
+      margin-bottom: 1rem !important;
+    }
+
+    .mb-05 {
+      margin-bottom: .5rem !important;
+    }
+
+    .mt-2 {
+      margin-top: 2rem;
+    }
+
+    .right {
+      text-align: right;
+      font-style: oblique;
+      /*font-weight: bold;*/
+    }
+    .right-2 {
+      text-align: right;
+    }
+
+    .grey {
+      /*background-color: beige;*/
+      border: 1px solid grey !important;
+      width: 90%;
+      margin: 2rem auto 0 auto;
+
+
+    }
+
+    .grey .info-item p {
+      margin-bottom: 0;
+      padding: 1rem .5rem;
+    }
+
+    .pl-2 {
+      padding-left: 2.5rem;
+    }
+
+    .hide {
+      /*display: none;*/
+    }
+
+    .zero-opacity {
+      opacity: 0;
+    }
+
+    .pay-info-table {
+      /*width: 94%;*/
+      margin-top: -4rem;
+    }
+
+    .pay-info-table-2 {
+      margin-top: -2rem;
+    }
+    .pay-info-table-3 {
+      margin-top: -2rem;
+    }
+
+    .ar {
+      text-align: right;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <h2>Receipt for Order XXXXXX</h2>
+    <h3>Saint Ambrose</h3>
+  </header>
+
+  <main class="main">
+    <div class="order-placed">
+      <p class="order"> <strong>Order Placed By:</strong> Amy Morgan</p>
+      <p class="date"><strong>Date:</strong> 01/30/2020</p>
+    </div>
+    <div class="order-items">
+      <p class="big-font">Order Items</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Item Description</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+
+        <tfoot>
+        <tr>
+          <th>Total</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th>200</th>
+        </tr>
+
+        </tfoot>
+
+        <tbody>
+        <tr>
+          <td>2021-21 Registration Fee for Kenneth Morgan ( $100.00 )</td>
+          <td>1</td>
+          <td>$200.00</td>
+          <td>$200.00</td>
+        </tr>
+        <tr>
+          <td>2021-21 Registration Fee for Kenneth Morgan ( $100.00 )</td>
+          <td>1</td>
+          <td>$200.00</td>
+          <td>$200.00</td>
+        </tr>
+
+        </tbody>
+
+
+      </table>
+
+    </div>
+
+    <div class="payment-info">
+      <p class="big-font">Payment Info</p>
+      <table class="pay-info-table">
+        <thead class="hide zero-opacity">
+        <tr>
+          <th>Item Description</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+          <td>Payment on 01/30/2020
+            &mdash; Credit Card ending in 1234</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ar"><strong>$1001.00</strong></td>
+        </tr>
+        <tr>
+          <td class="pl-2"><em>Apply to order</em></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ar"><em>$1000.00</em></td>
+        </tr>
+        <tr>
+          <td class="pl-2"><em>Convenience fee</em></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ar"><em>$1.00</em></td>
+        </tr>
+
+        </tbody>
+
+
+      </table>
+
+
+      <table class="pay-info-table-2">
+        <thead class="hide zero-opacity">
+        <tr>
+          <th>Item Description</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+          <td>Charge to Account for First Name Last Name</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ar"><strong>$1001.00</strong></td>
+        </tr>
+        </tbody>
+
+
+      </table>
+
+      <table class="pay-info-table-3">
+        <thead class="hide zero-opacity">
+        <tr>
+          <th>Item Description</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+          <td>Charge to Payment Plan for First Name Last Name</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ar"><strong>$1001.00</strong></td>
+        </tr>
+        </tbody>
+
+
+      </table>
+
+      <div class="payment-info-items mt-2 grey">
+        <div class="info-item">
+<!--          <p class="payment-para">Payment on <span class="mono"> 02/15/2020</span></p>-->
+<!--          <p class="small">Payment CC ending in 7890</p>-->
+          <p><strong><em>There are no payments</em></strong></p>
+
+        </div>
+<!--        <div class="info-amount">-->
+<!--&lt;!&ndash;          <p class="payment-para">$</p>&ndash;&gt;-->
+<!--&lt;!&ndash;          <p>&nbsp;</p>&ndash;&gt;-->
+<!--&lt;!&ndash;          <p>&nbsp;</p>&ndash;&gt;-->
+<!--          <p class="unpaid"><strong>$ 0.00</strong></p>-->
+<!--        </div>-->
+      </div>
+    </div>
+
+    <div class="payment-info">
+      <p class="big-font">Summary</p>
+
+      <table class="pay-info-table-2">
+        <thead class="hide zero-opacity">
+        <tr>
+          <th>Item Description</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+          <td>Order Total</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ar"><strong>$1001.00</strong></td>
+        </tr>
+        </tbody>
+
+
+      </table>
+
+      <table class="pay-info-table-3">
+        <thead class="hide zero-opacity">
+        <tr>
+          <th>Item Description</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+          <td>Payments</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ar"><strong>($1000.00)</strong></td>
+        </tr>
+        </tbody>
+
+
+      </table>
+
+
+      <table class="pay-info-table-3">
+        <thead class="hide zero-opacity">
+        <tr>
+          <th>Item Description</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+          <td><strong>Unpaid Balance</strong></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td class="ar"><strong>($1.00)</strong></td>
+        </tr>
+        </tbody>
+
+
+      </table>
+
+    </div>
+  </main>
+
+</div>
+
+
+
+<script>
+
+</script>
+</body>
+</html>
